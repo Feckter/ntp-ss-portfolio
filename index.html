@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nadtapong Saesung — Portfolio</title>
+<meta name="description" content="พอร์ตโฟลิโอนักศึกษา Computer Science RMUTK — โปรเจกต์ทำนายราคาทองคำด้วย AI และเว็บจดรายรับรายจ่ายที่อ่านสลิปให้อัตโนมัติ">
+<meta property="og:title" content="Nadtapong Saesung — Portfolio">
+<meta property="og:description" content="นักศึกษา Computer Science ปี 4 · กำลังหาที่ฝึกงานตำแหน่ง Programmer">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='26' fill='%230b1120'/%3E%3Ctext x='50' y='69' font-size='56' font-family='sans-serif' font-weight='700' fill='%234da3ff' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b1120;
+  --surface:rgba(255,255,255,.038);
+  --surface-2:rgba(255,255,255,.055);
+  --edge:rgba(255,255,255,.075);
+  --edge-2:rgba(140,190,255,.30);
+  --white:#ffffff;
+  --ink:#e9eef7;
+  --ink-2:#93a4bc;
+  --ink-3:#63758f;
+  --blue:#4da3ff;
+  --blue-2:#7dd3fc;
+  --blue-deep:#2563eb;
+  --green:#4ade80;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --r:20px; --r-sm:14px; --r-xs:10px;
+  --shadow:0 1px 2px rgba(0,0,0,.30), 0 10px 30px rgba(0,0,0,.28);
+  --shadow-up:0 2px 6px rgba(0,0,0,.30), 0 20px 48px rgba(0,0,0,.40);
+  --font:"IBM Plex Sans Thai","Leelawadee UI","Segoe UI",system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box}
+/* กล่องคำอธิบายที่ลอยขึ้นตอนเอาเมาส์ชี้ กินพื้นที่เกินขอบจอ — clip ไม่ทำให้เมนูที่ติดบนพัง */
+html{overflow-x:clip}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font:400 16.5px/1.8 var(--font); -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  /* กล่องคำอธิบายที่ลอยขึ้นตอนเอาเมาส์ชี้ อาจล้นขอบจอ — clip ไม่พังเมนูที่ติดบน */
+  overflow-x:clip;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(1000px 620px at 15% -10%, rgba(77,163,255,.18), transparent 60%),
+    radial-gradient(760px 500px at 88% 0%, rgba(125,211,252,.10), transparent 58%);
+}
+h1,h2,h3,h4{margin:0; font-weight:600; letter-spacing:-.02em; line-height:1.28; color:var(--white)}
+p{margin:0 0 1.05em}
+a{color:var(--blue); text-decoration:none; transition:color .18s var(--ease)}
+a:hover{color:var(--blue-2)}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1000px; margin:0 auto; padding:0 26px}
+.muted{color:var(--ink-2)}
+
+/* ---------- header / nav ---------- */
+.top{position:sticky; top:0; z-index:60; background:rgba(11,17,32,.72); backdrop-filter:blur(18px) saturate(140%); border-bottom:1px solid var(--edge)}
+.top .wrap{display:flex; align-items:center; gap:26px; height:66px}
+.logo{display:flex; align-items:center; gap:11px; font-weight:600; color:var(--white); font-size:16px; white-space:nowrap}
+.logo .mark{
+  width:30px; height:30px; border-radius:9px; display:grid; place-items:center;
+  background:linear-gradient(140deg,var(--blue),var(--blue-deep)); color:#fff; font-size:15px; font-weight:700;
+  box-shadow:0 4px 14px rgba(77,163,255,.35);
+}
+.tabs{display:flex; gap:2px; margin-left:auto; list-style:none; padding:0; margin-block:0; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs a{
+  position:relative; display:block; padding:8px 15px; border-radius:11px;
+  font-size:15px; color:var(--ink-2); white-space:nowrap; transition:color .2s var(--ease), background .2s var(--ease);
+}
+.tabs a::after{
+  content:""; position:absolute; left:50%; right:50%; bottom:2px; height:2px; border-radius:2px;
+  background:var(--blue); transition:left .26s var(--ease), right .26s var(--ease);
+}
+.tabs a:hover{color:var(--white); background:rgba(255,255,255,.05)}
+.tabs a:hover::after{left:15px; right:15px}
+.tabs a.on{color:var(--white)}
+.tabs a.on::after{left:15px; right:15px}
+
+/* ---------- page switching ---------- */
+.page{display:none; padding:70px 0 96px}
+.page.on{display:block; animation:in .42s var(--ease) both}
+@keyframes in{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+.page-head{margin-bottom:44px}
+.kicker{font-size:14px; font-weight:500; color:var(--blue); margin-bottom:10px}
+.page-head h2{font-size:clamp(28px,4.4vw,38px)}
+.page-head p{color:var(--ink-2); max-width:64ch; margin-top:12px; margin-bottom:0}
+
+/* ---------- surfaces ---------- */
+.card{
+  background:var(--surface); border:1px solid var(--edge); border-radius:var(--r);
+  padding:30px; box-shadow:var(--shadow);
+  transition:transform .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+}
+.card.hover:hover{transform:translateY(-4px); border-color:var(--edge-2); box-shadow:var(--shadow-up); background:var(--surface-2)}
+.grid{display:grid; gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.stack{display:flex; flex-direction:column; gap:18px}
+
+/* ---------- hero ---------- */
+.hero{display:grid; grid-template-columns:minmax(0,1fr) 260px; gap:52px; align-items:center}
+.badge{
+  display:inline-flex; align-items:center; gap:9px; padding:7px 16px 7px 13px;
+  border-radius:999px; background:rgba(74,222,128,.10); border:1px solid rgba(74,222,128,.28);
+  color:var(--green); font-size:14px; font-weight:500; margin-bottom:26px;
+}
+.badge i{width:7px; height:7px; border-radius:50%; background:var(--green); animation:blip 2.6s infinite}
+@keyframes blip{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.55)} 60%{box-shadow:0 0 0 7px rgba(74,222,128,0)}}
+.hero h1{font-size:clamp(36px,6vw,54px); letter-spacing:-.035em; line-height:1.06}
+.hero .role{margin-top:14px; font-size:clamp(15px,2vw,18px); color:var(--blue-2); font-weight:500}
+.hero .lead{margin-top:22px; font-size:17.5px; color:var(--ink-2); max-width:56ch}
+.hero .lead b{color:var(--white); font-weight:600}
+
+.avatar{
+  position:relative; width:100%; aspect-ratio:3/4; border-radius:26px; overflow:hidden;
+  background:linear-gradient(150deg,rgba(77,163,255,.22),rgba(37,99,235,.10));
+  border:1px solid var(--edge); box-shadow:var(--shadow-up);
+  display:grid; place-items:center;
+  transition:transform .35s var(--ease), border-color .35s var(--ease);
+}
+.avatar:hover{transform:translateY(-5px) rotate(-1deg); border-color:var(--edge-2)}
+.avatar img{width:100%; height:100%; object-fit:cover; object-position:50% 15%; display:block; position:absolute; inset:0}
+.avatar .ph{text-align:center; color:var(--ink-3); font-size:13.5px; line-height:1.6; padding:16px}
+.avatar .ph b{display:block; font-size:42px; color:rgba(255,255,255,.20); font-weight:700; margin-bottom:6px}
+
+.cta{display:flex; flex-wrap:wrap; gap:12px; margin-top:32px}
+.btn{
+  display:inline-flex; align-items:center; gap:9px; padding:13px 22px; border-radius:13px;
+  font:500 15.5px var(--font); border:1px solid var(--edge); background:var(--surface);
+  color:var(--ink); cursor:pointer; transition:all .22s var(--ease);
+}
+.btn:hover{background:var(--surface-2); border-color:var(--edge-2); color:var(--white); transform:translateY(-2px)}
+.btn.primary{
+  background:linear-gradient(140deg,var(--blue),var(--blue-deep)); border-color:transparent; color:#fff;
+  box-shadow:0 6px 20px rgba(77,163,255,.30);
+}
+.btn.primary:hover{box-shadow:0 10px 30px rgba(77,163,255,.45); color:#fff}
+
+/* ---------- small pieces ---------- */
+
+.tags{display:flex; flex-wrap:wrap; gap:8px}
+.tag{
+  font-size:13px; padding:5px 12px; border-radius:9px; color:var(--blue-2);
+  background:rgba(77,163,255,.10); border:1px solid rgba(77,163,255,.20);
+  transition:all .2s var(--ease);
+}
+.tag:hover{background:rgba(77,163,255,.22); color:var(--white); transform:translateY(-2px)}
+
+.chip{font-size:12.5px; padding:4px 11px; border-radius:999px; border:1px solid var(--edge); color:var(--ink-2); white-space:nowrap}
+.chip.done{color:var(--green); border-color:rgba(74,222,128,.28); background:rgba(74,222,128,.09)}
+.chip.wip{color:var(--amber); border-color:rgba(251,191,36,.28); background:rgba(251,191,36,.09)}
+
+/* คำศัพท์ที่ต้องอธิบาย — เอาเมาส์ชี้แล้วขึ้นคำอธิบาย */
+.term{
+  border-bottom:1px dashed var(--edge-2); cursor:help; position:relative; color:var(--ink);
+  transition:color .2s var(--ease), border-color .2s var(--ease);
+}
+.term:hover{color:var(--blue-2); border-color:var(--blue-2)}
+.term::after{
+  content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 10px);
+  transform:translate(-50%,6px); width:max-content; max-width:290px;
+  background:#141d31; color:var(--ink); border:1px solid var(--edge-2); border-radius:12px;
+  padding:11px 15px; font-size:14px; line-height:1.6; font-weight:400; text-align:left;
+  box-shadow:var(--shadow-up); opacity:0; pointer-events:none; z-index:40;
+  transition:opacity .2s var(--ease), transform .2s var(--ease);
+}
+.term:hover::after{opacity:1; transform:translate(-50%,0)}
+
+/* ---------- project ---------- */
+.proj{margin-bottom:22px}
+.proj-head{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-bottom:8px}
+.proj-head h3{font-size:26px}
+.proj-sub{color:var(--ink-2); margin-bottom:24px; max-width:66ch}
+
+.kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:26px 0}
+.kpi{
+  background:var(--surface); border:1px solid var(--edge); border-radius:var(--r-sm); padding:16px 18px;
+  transition:all .28s var(--ease);
+}
+.kpi:hover{background:var(--surface-2); border-color:var(--edge-2); transform:translateY(-3px)}
+.kpi .v{font-size:23px; font-weight:600; color:var(--white); line-height:1.25}
+.kpi .v.pos{color:var(--green)} .kpi .v.neg{color:var(--red)}
+.kpi .k{font-size:13px; color:var(--ink-3); margin-top:4px; line-height:1.55}
+
+.steps{border-left:2px solid var(--edge); margin-top:10px}
+.step{padding:0 0 26px 28px; position:relative}
+.step:last-child{padding-bottom:0}
+.step::before{
+  content:""; position:absolute; left:-7px; top:11px; width:12px; height:12px; border-radius:50%;
+  background:var(--blue); box-shadow:0 0 0 4px var(--bg), 0 0 14px rgba(77,163,255,.55);
+  transition:transform .28s var(--ease), background .28s var(--ease);
+}
+.step:hover::before{transform:scale(1.25)}
+.step h4{font-size:18px; margin-bottom:9px}
+.step ul{margin:0 0 1em; padding-left:21px; color:var(--ink-2)}
+.step li{margin-bottom:8px}
+.step li::marker{color:var(--blue)}
+.step b{color:var(--ink); font-weight:600}
+.step p:last-child, .step ul:last-child{margin-bottom:0}
+.step.warn::before{background:var(--amber); box-shadow:0 0 0 4px var(--bg), 0 0 14px rgba(251,191,36,.5)}
+.step.warn h4{color:var(--amber)}
+
+/* ขั้นตอนที่พับเก็บได้ — หน้าผลงานยาวเกินไปถ้ากางหมดทุกส่วน */
+details.step{border:0; background:none; border-radius:0; margin-top:0}
+details.step:hover{border-color:transparent}
+details.step summary{padding:0; font-family:inherit; font-size:inherit; color:inherit; margin-bottom:0; align-items:baseline}
+details.step summary::before{content:"+"; color:var(--blue); font-size:19px; line-height:1; order:2; transition:transform .25s var(--ease)}
+details.step[open] summary::before{transform:rotate(45deg)}
+details.step.warn summary::before{color:var(--amber)}
+details.step summary h4{margin-bottom:0; transition:color .2s var(--ease)}
+details.step summary:hover h4{color:var(--blue-2)}
+details.step.warn summary:hover h4{color:#fcd34d}
+details.step[open] summary{margin-bottom:11px}
+.peek{font-size:13.5px; color:var(--ink-3); order:1}
+
+.tbl{overflow-x:auto; margin:6px 0 20px; border:1px solid var(--edge); border-radius:var(--r-sm)}
+table{width:100%; border-collapse:collapse; font-size:15px; min-width:460px}
+th,td{padding:11px 16px; text-align:left; border-bottom:1px solid var(--edge)}
+th{font-size:13px; font-weight:500; color:var(--ink-3); background:rgba(255,255,255,.02)}
+td.n,th.n{font-variant-numeric:tabular-nums; text-align:right}
+tbody tr{transition:background .2s var(--ease)}
+tbody tr:hover{background:rgba(255,255,255,.04)}
+tr:last-child td{border-bottom:0}
+.pos{color:var(--green)} .neg{color:var(--red)}
+
+details{border:1px solid var(--edge); border-radius:var(--r-sm); background:rgba(255,255,255,.02); margin-top:16px; transition:border-color .25s var(--ease)}
+details:hover{border-color:var(--edge-2)}
+summary{padding:15px 20px; cursor:pointer; font-size:15px; color:var(--ink-2); list-style:none; display:flex; align-items:center; gap:11px; transition:color .2s var(--ease)}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; color:var(--blue); font-size:18px; line-height:1; transition:transform .25s var(--ease)}
+details[open] summary::before{transform:rotate(45deg)}
+summary:hover{color:var(--white)}
+details .body{padding:4px 20px 20px}
+pre{
+  margin:16px 0 0; padding:18px; overflow-x:auto; border-radius:var(--r-xs);
+  background:#070c17; border:1px solid var(--edge);
+  font-family:"Cascadia Mono",Consolas,monospace; font-size:13px; line-height:1.7; color:var(--ink);
+}
+.cmt{color:var(--ink-3)} .kw{color:#c4b5fd} .fn{color:var(--blue-2)} .lit{color:var(--amber)}
+
+.chartbox{background:var(--surface); border:1px solid var(--edge); border-radius:var(--r-sm); padding:22px 20px 16px; margin-top:24px}
+.chartbox h4{font-size:16.5px}
+.chartbox .hint{font-size:13.5px; color:var(--ink-3); margin:5px 0 18px}
+.chartbox svg{width:100%; height:auto; display:block}
+.chartbox rect.bar{transition:opacity .2s var(--ease)}
+.chartbox svg:hover rect.bar{opacity:.45}
+.chartbox rect.bar:hover{opacity:1}
+.legend{display:flex; gap:20px; flex-wrap:wrap; font-size:13.5px; color:var(--ink-2); margin-top:12px}
+.legend i{display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:8px}
+
+/* ---------- timeline ---------- */
+.tl{border-left:2px solid var(--edge)}
+.tl-item{padding:0 0 30px 28px; position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-item::before{
+  content:""; position:absolute; left:-7px; top:10px; width:12px; height:12px; border-radius:50%;
+  background:var(--bg); border:2px solid var(--edge-2); transition:all .28s var(--ease);
+}
+.tl-item:hover::before{background:var(--blue); border-color:var(--blue); box-shadow:0 0 14px rgba(77,163,255,.6)}
+.tl-item .when{font-size:13.5px; color:var(--blue-2); margin-bottom:3px}
+.tl-item h4{font-size:18px}
+.tl-item .where{color:var(--ink-3); font-size:14.5px; margin-bottom:8px}
+.tl-item p{color:var(--ink-2); margin-bottom:0}
+
+/* ---------- skills ---------- */
+.skill-head{display:flex; align-items:center; gap:14px; margin:46px 0 20px}
+.skill-head:first-of-type{margin-top:0}
+.skill-head b{font-size:19px; color:var(--white); white-space:nowrap}
+.skill-head .line{flex:1; height:1px; background:var(--edge)}
+.skill-badge{
+  font-size:12.5px; font-weight:500; padding:5px 13px; border-radius:999px;
+  letter-spacing:.03em; white-space:nowrap;
+}
+.skill-badge.hard{color:var(--blue-2); background:rgba(77,163,255,.12); border:1px solid rgba(77,163,255,.30)}
+.skill-badge.soft{color:var(--green); background:rgba(74,222,128,.10); border:1px solid rgba(74,222,128,.30)}
+.skill-badge.lang{color:var(--ink-2); background:var(--surface); border:1px solid var(--edge-2)}
+.skill-title{font-size:16px; color:var(--ink-2); font-weight:500}
+
+.soft-row{display:grid; grid-template-columns:210px 1fr; gap:20px; padding:17px 0; border-top:1px solid var(--edge)}
+.soft-row:first-child{border-top:0; padding-top:0}
+.soft-row:last-child{padding-bottom:0}
+.soft-row b{color:var(--white); font-weight:600}
+.soft-row p{margin:0; color:var(--ink-2); font-size:15.5px}
+
+.skill-row{display:flex; flex-wrap:wrap; gap:9px; margin-top:14px}
+.pill{
+  padding:8px 15px; border-radius:12px; font-size:14.5px; color:var(--ink);
+  background:var(--surface); border:1px solid var(--edge); transition:all .24s var(--ease);
+}
+.pill:hover{background:rgba(77,163,255,.16); border-color:var(--edge-2); color:var(--white); transform:translateY(-3px)}
+
+/* ---------- certificates ---------- */
+.certs{display:grid; grid-template-columns:repeat(auto-fill,minmax(228px,1fr)); gap:18px}
+.cert{
+  border:1px solid var(--edge); border-radius:var(--r-sm); overflow:hidden; cursor:pointer;
+  background:var(--surface); transition:all .3s var(--ease); text-align:left; padding:0; font:inherit; color:inherit;
+}
+.cert:hover{transform:translateY(-5px); border-color:var(--edge-2); box-shadow:var(--shadow-up)}
+.cert img{width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:#0f1626; transition:transform .4s var(--ease)}
+.cert:hover img{transform:scale(1.04)}
+.cert .cap{padding:14px 16px}
+.cert .cap b{display:block; font-size:15px; color:var(--white); font-weight:500}
+.cert .cap span{font-size:13px; color:var(--ink-3)}
+.empty{border:1px dashed var(--edge-2); border-radius:var(--r); padding:44px 30px; text-align:center; color:var(--ink-3)}
+
+.shots{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:24px}
+.shot{
+  border:1px solid var(--edge); border-radius:var(--r-sm); overflow:hidden; cursor:pointer; padding:0;
+  background:var(--surface); font:inherit; color:var(--ink-3); text-align:left;
+  transition:all .3s var(--ease);
+}
+.shot:hover{transform:translateY(-4px); border-color:var(--edge-2); box-shadow:var(--shadow-up); color:var(--white)}
+.shot img{width:100%; aspect-ratio:16/10; object-fit:cover; object-position:top; display:block; background:#0f1626; transition:transform .4s var(--ease)}
+/* กราฟกว้างมาก ถ้าครอบตัดจะเหลือแต่ขอบดำ จึงย่อให้เห็นทั้งภาพแทน */
+.shots.wide .shot img{object-fit:contain; object-position:center; background:#0a0a0a}
+.shot:hover img{transform:scale(1.04)}
+.shot span{display:block; padding:11px 14px; font-size:13.5px}
+.shot-note{grid-column:1/-1; margin:2px 0 0; font-size:13.5px; color:var(--ink-3)}
+
+.lightbox{
+  position:fixed; inset:0; z-index:100; display:none; place-items:center;
+  background:rgba(6,10,20,.90); backdrop-filter:blur(8px); padding:28px;
+}
+.lightbox.on{display:grid; animation:in .25s var(--ease) both}
+.lightbox img{max-width:min(1100px,94vw); max-height:82vh; border-radius:var(--r-sm); box-shadow:var(--shadow-up)}
+.lightbox .lb-cap{text-align:center; color:var(--ink-2); margin-top:16px; font-size:15px}
+.lb-btn{
+  position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%;
+  background:var(--surface-2); border:1px solid var(--edge); color:var(--white); font-size:22px;
+  cursor:pointer; transition:all .22s var(--ease);
+}
+.lb-btn:hover{background:var(--blue); border-color:var(--blue); transform:translateY(-50%) scale(1.08)}
+.lb-prev{left:22px} .lb-next{right:22px}
+.lb-close{position:absolute; top:22px; right:22px; transform:none}
+.lb-close:hover{transform:scale(1.08)}
+
+/* ---------- contact ---------- */
+.ct{display:flex; align-items:center; gap:16px; padding:20px 22px; border-radius:var(--r-sm);
+  border:1px solid var(--edge); background:var(--surface); transition:all .26s var(--ease); color:inherit}
+.ct:hover{background:var(--surface-2); border-color:var(--edge-2); transform:translateY(-3px); color:inherit}
+.ct .ic{width:44px; height:44px; border-radius:13px; flex:0 0 auto; display:grid; place-items:center;
+  background:rgba(77,163,255,.14); color:var(--blue-2); font-size:19px}
+.ct .k{font-size:13px; color:var(--ink-3)}
+.ct .v{font-size:15.5px; color:var(--white); word-break:break-all}
+.ct.soon{opacity:.55; cursor:default}
+.ct.soon:hover{transform:none; background:var(--surface); border-color:var(--edge)}
+
+footer{border-top:1px solid var(--edge); padding:30px 0 46px; color:var(--ink-3); font-size:14px}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr; gap:34px}
+  .avatar{max-width:190px}
+  .g2,.g3{grid-template-columns:1fr}
+  .card{padding:22px}
+  .page{padding:48px 0 70px}
+  .top .wrap{gap:14px}
+  .term::after{max-width:min(280px,78vw)}
+  .soft-row{grid-template-columns:1fr; gap:6px}
+  .skill-head{margin:34px 0 16px; flex-wrap:wrap; gap:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+/* ---------- โหมดพิมพ์ ----------
+   ทั้งเว็บใช้สีผ่านตัวแปร CSS ตรงนี้จึงนิยามตัวแปรใหม่ให้เป็นโทนสว่างทีเดียว
+   ไม่ต้องไล่แก้ทีละกล่อง ไม่งั้นตัวหนังสือสีขาวจะหายไปบนกระดาษขาว */
+@media print{
+  :root{
+    --bg:#fff; --white:#000; --ink:#111; --ink-2:#333; --ink-3:#5a5a5a;
+    --blue:#0b57a4; --blue-2:#0b57a4; --blue-bright:#0b57a4; --blue-deep:#0b57a4;
+    --green:#0a7a3d; --amber:#8a5a00; --red:#b3261e;
+    --surface:#fff; --surface-2:#fff; --edge:#d3d3d3; --edge-2:#9a9a9a;
+    --shadow:none; --shadow-up:none;
+  }
+  @page{margin:14mm}
+  body::before{display:none}
+  .top,.cta,.lightbox,.shot-note,.peek{display:none}
+  body{background:#fff; color:#111; font-size:11.5pt}
+  .page{display:block!important; padding:0 0 8mm}
+  main section + section{break-before:page}
+  .wrap{max-width:none; padding:0}
+  .card,.kpi,.chartbox,.tbl,.avatar{box-shadow:none}
+  .badge,.chip,.tag,.pill,.skill-badge,details{background:none!important}
+  details summary::before{display:none}
+  pre{background:#f4f5f7; color:#111; border-color:#ddd}
+  .cmt{color:#6a737d} .kw{color:#6f42c1} .fn{color:#0b57a4} .lit{color:#8a5a00}
+  .soft-row,.kpi,.cert,.tl-item,.shot,figure{break-inside:avoid}
+  h1,h2,h3,h4{break-after:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="logo"><span class="mark">N</span> Nadtapong</div>
+    <ul class="tabs" id="tabs">
+      <li><a href="#home">หน้าแรก</a></li>
+      <li><a href="#projects">ผลงาน</a></li>
+      <li><a href="#skills">ทักษะ</a></li>
+      <li><a href="#experience">ประสบการณ์</a></li>
+      <li><a href="#certificates">ใบประกาศ</a></li>
+      <li><a href="#contact">ติดต่อ</a></li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ══════════ หน้าแรก ══════════ -->
+<section class="page" id="page-home">
+  <div class="hero">
+    <div>
+      <div class="badge"><i></i> เปิดรับฝึกงาน · 16 พ.ย. 2026 – 12 มี.ค. 2027</div>
+      <h1>Nadtapong Saesung</h1>
+      <div class="role">นักศึกษาวิทยาการคอมพิวเตอร์ ปี 4 · RMUTK</div>
+      <p class="lead">
+        ผมทำงาน<b>ละเอียด</b> ชอบสังเกตจุดเล็ก ๆ ที่คนอื่นมองข้าม
+        และชอบลองหาของใหม่ ๆ มาปรับให้งานดีขึ้น กำลังหาที่ฝึกงานเพื่อเรียนรู้การทำงานจริงในทีม
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="assets/Nadtapong_Saesung_Resume.pdf" target="_blank" rel="noopener">ดาวน์โหลดเรซูเม่</a>
+        <a class="btn" href="#projects">ดูผลงาน</a>
+        <button class="btn" id="copyMail" type="button">คัดลอกอีเมล</button>
+      </div>
+    </div>
+    <div class="avatar">
+      <img src="assets/IMG_5458.png" alt="รูปถ่าย Nadtapong Saesung" onerror="this.remove()">
+      <div class="ph"><b>N</b>วางรูปไว้ที่<br>assets/</div>
+    </div>
+  </div>
+
+
+  <div class="grid g2" style="margin-top:56px">
+    <div class="card hover">
+      <h3 style="font-size:20px; margin-bottom:12px">ผมเป็นใคร</h3>
+      <p class="muted">นักศึกษาวิทยาการคอมพิวเตอร์ ชั้นปีที่ 4 RMUTK
+      กำลังมองหาที่ฝึกงานตำแหน่งโปรแกรมเมอร์ ระยะเวลา 17 สัปดาห์</p>
+      <p class="muted" style="margin-bottom:0">ผมยังไม่ใช่โปรแกรมเมอร์ที่เก่งที่สุด
+      แต่ผมคิดเป็นระบบ ค้นคว้าเก่ง และไล่หาสาเหตุของปัญหาจนเจอ
+      บวกกับประสบการณ์งานบริการลูกค้าและงานประสานกิจกรรม ทำให้ผมทำงานกับทีมได้โดยไม่ต้องมีใครคอยตาม</p>
+    </div>
+    <div class="card hover">
+      <h3 style="font-size:20px; margin-bottom:12px">สิ่งที่อยากได้จากการฝึกงาน</h3>
+      <ul class="muted" style="margin:0; padding-left:21px">
+        <li style="margin-bottom:8px">เห็นว่าบริษัทจริงพัฒนาซอฟต์แวร์กันอย่างไร โดยเฉพาะการทำงานเป็นรอบสั้น ๆ แบบ Agile</li>
+        <li style="margin-bottom:8px">ช่วยรุ่นพี่ทดลองของใหม่ หาจุดที่โปรแกรมพัง และปรับแก้ตามที่ต้องการ</li>
+        <li>ช่วยให้ทีมเดินได้ลื่นขึ้น ด้วยการดูแลเอกสารและประสานงาน</li>
+      </ul>
+      <div class="tags" style="margin-top:20px">
+        <span class="tag">Programmer</span><span class="tag">UX/UI Designer</span><span class="tag">Software Tester</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ผลงาน ══════════ -->
+<section class="page" id="page-projects">
+  <div class="page-head">
+    <div class="kicker">ผลงาน</div>
+    <h2>งานที่ลงมือทำเอง</h2>
+    <p>เล่าเรียงแบบเดียวกันทุกอัน — โจทย์คืออะไร ทำอย่างไร ได้ผลแค่ไหน และมีอะไรที่ยังไม่ดี
+    ส่วนสุดท้ายผมคิดว่าสำคัญที่สุด เพราะตัวเลขสวย ๆ ที่ไม่บอกว่าพังตรงไหน เชื่อไม่ได้</p>
+  </div>
+
+  <!-- ── Gold AI ── -->
+  <article class="card proj" id="goldai">
+    <div class="proj-head">
+      <h3>Gold AI</h3>
+      <span class="chip done">เสร็จแล้ว · 2026</span>
+      <span class="chip">โปรเจกต์รายวิชา AI</span>
+    </div>
+    <p class="proj-sub">โปรแกรมทำนายราคาทองคำล่วงหน้า 2 วัน แล้วทดลองย้อนหลังว่าถ้าเอาไปซื้อขายจริงจะได้กำไรหรือขาดทุน</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v pos num">86.1%</div><div class="k">กำไรเฉลี่ยต่อปี ในช่วง 5 ปีที่โปรแกรมไม่เคยเห็นข้อมูลมาก่อน</div></div>
+      <div class="kpi"><div class="v neg num">−47.4%</div><div class="k">ช่วงที่เงินในบัญชีหายมากที่สุด ต้องทนเห็นเงินหายเกือบครึ่ง</div></div>
+      <div class="kpi"><div class="v num">51.3%</div><div class="k">ทายทิศทางราคาถูก เทียบกับการโยนเหรียญที่ได้ 50%</div></div>
+      <div class="kpi"><div class="v num">1,950</div><div class="k">รูปแบบการตั้งค่าที่ทดลอง ก่อนคัดเหลือแบบเดียว</div></div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <h4>โจทย์</h4>
+        <p class="muted">วิชากำหนดให้ใช้วิธีทางสถิติชื่อ
+        <span class="term" data-tip="วิธีหาเส้นตรงที่อธิบายความสัมพันธ์ของข้อมูลได้ดีที่สุด แล้วใช้เส้นนั้นทำนายค่าถัดไป">Linear Regression</span>
+        ทำนายราคาทองจากข้อมูลย้อนหลังอย่างน้อย 5 ปี
+        แต่คำถามที่ผมสนใจกว่าคือ ถ้าทำนายได้จริง มันทำเงินได้ไหม
+        และเราจะ<b>รู้ได้อย่างไร</b>ว่ากำไรที่เห็นไม่ได้มาจากความบังเอิญ</p>
+      </div>
+
+      <div class="step">
+        <h4>วิธีทำ</h4>
+        <ul>
+          <li><b>ไม่ป้อนราคาดิบให้โปรแกรม</b> — ทองวิ่งจาก 1,241 ดอลลาร์ ขึ้นไป 4,430 ดอลลาร์
+          โปรแกรมที่เรียนจากยุคราคา 1,300 ต้องเอาไปใช้กับยุค 4,000 ได้
+          ผมจึงแปลงทุกอย่างเป็นสัดส่วน เช่น "ราคาวันนี้สูงกว่าค่าเฉลี่ย 20 วันกี่เปอร์เซ็นต์" รวม 19 ตัว</li>
+          <li><b>สอนใหม่ทุกครั้งที่เวลาขยับ</b> — เรียนจากข้อมูล 1,500 ช่วงเวลาก่อนหน้า ทำนายช่วงถัดไป
+          แล้วเลื่อนหน้าต่างไปข้างหน้าและเรียนใหม่ ไม่ใช่สอนครั้งเดียวแล้วใช้ยาว</li>
+          <li><b>กันไม่ให้โปรแกรมแอบเห็นอนาคต</b> — เพราะทำนายล่วงหน้า 12 ช่วงเวลา
+          ข้อมูลแถวล่าสุดที่ <i>เฉลยแล้วจริง ๆ</i> คือแถวที่ 12 ช่วงก่อนหน้า ไม่ใช่แถวล่าสุด
+          ถ้าเผลอใช้แถวล่าสุด ผลจะออกมาสวยเกินจริงทันที</li>
+          <li><b>แบ่งช่วงเวลาก่อนเริ่มทดลอง</b> — ปี 2018–2021 ใช้หาว่าตั้งค่าแบบไหนดีที่สุด
+          ส่วนปี 2022–2026 ปิดไว้ไม่แตะเลย จนเลือกเสร็จแล้วค่อยเปิดมาวัดผลครั้งเดียว
+          เหมือนข้อสอบที่ไม่ให้ดูก่อนสอบ</li>
+          <li><b>ล้างข้อมูลก่อน 3 จุด</b> — ไฟล์ที่โหลดมาใช้ดิบไม่ได้
+          แถวแรกเป็นแถวรวมประวัติเก่าทั้งก้อน ข้อมูลรายชั่วโมงปี 2014–2016 มีแค่ปีละ 305 แถว
+          ทั้งที่ควรมีราว 6,000 และมีบางแถวที่เก็บข้อมูลไม่ครบชั่วโมง 3.8%</li>
+        </ul>
+        <p class="muted" style="margin-bottom:0">หลังล้างเสร็จ ผมเช็คว่าข้อมูลที่ผมย่อเองตรงกับของโปรแกรมต้นทางไหม —
+        15,176 แถว ตรงกัน 100% ต่างกัน 0.000000 ดอลลาร์ และเช็คซ้ำอัตโนมัติทุกครั้งที่รัน</p>
+      </div>
+
+      <div class="step">
+        <h4>ผลลัพธ์</h4>
+        <p class="muted">วัดบนช่วงปี 2022–2026 ที่ไม่เคยถูกใช้ตอนเลือกค่า เทียบกับการซื้อทองเก็บไว้เฉย ๆ ที่ได้ 20.9% ต่อปี</p>
+        <div class="tbl">
+          <table>
+            <thead><tr>
+              <th>ระดับความเสี่ยง</th><th class="n">กำไรเฉลี่ย/ปี</th><th class="n">เงินหายมากสุด</th>
+              <th class="n">เงิน 1,000 → </th><th class="n">กำไรรวม ÷ ขาดทุนรวม</th>
+            </tr></thead>
+            <tbody>
+              <tr><td>ต่ำ</td><td class="n pos">17.0%</td><td class="n neg">−32.4%</td><td class="n">$2,083</td><td class="n">1.28</td></tr>
+              <tr><td><b style="color:var(--white)">กลาง</b></td><td class="n pos">86.1%</td><td class="n neg">−47.4%</td><td class="n">$18,179</td><td class="n">1.34</td></tr>
+              <tr><td>สูง</td><td class="n pos">228.5%</td><td class="n neg">−79.2%</td><td class="n">$258,757</td><td class="n">1.12</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="chartbox">
+          <h4>กำไรรายปี — โปรแกรมของผม เทียบกับ ซื้อทองเก็บเฉย ๆ</h4>
+          <div class="hint">ความเสี่ยงระดับกลาง · ชนะการซื้อทองเก็บ 7 จาก 9 ปี · ปี 2026 นับถึงเดือนกันยายน · เอาเมาส์ชี้ที่แท่งเพื่อดูตัวเลข</div>
+          <svg id="chartYearly" viewBox="0 0 720 300" role="img" aria-label="กราฟแท่งเปรียบเทียบกำไรรายปี ปี 2018 ถึง 2026 ระหว่างโปรแกรมกับการซื้อทองเก็บเฉย ๆ"></svg>
+          <div class="legend">
+            <span><i style="background:#4da3ff"></i>โปรแกรมของผม</span>
+            <span><i style="background:#63758f"></i>ซื้อทองเก็บเฉย ๆ</span>
+          </div>
+        </div>
+
+        <div id="goldStrip"></div>
+      </div>
+
+      <details class="step">
+        <summary><h4>พิสูจน์ว่าไม่ได้ฟลุก</h4><span class="peek">ทดสอบ 3 ชั้น · กดอ่าน</span></summary>
+        <p class="muted">ช่วงที่ทดสอบ ทองขึ้นไป 253% — ซื้อมั่ว ๆ ก็กำไรอยู่แล้ว ผมจึงต้องพิสูจน์ 3 ชั้น</p>
+        <ul>
+          <li><b>ป้อนข้อมูลปลอมที่รู้คำตอบอยู่แล้ว</b> — ป้อนข้อมูลสุ่มล้วน โปรแกรมทายถูก 48.7%
+          (ถูกแล้ว เพราะควรได้ราว 50%) ป้อนข้อมูลที่มีแนวโน้มชัด ทายถูก 59.6%
+          แปลว่าโค้ดไม่มีบั๊กแอบดูอนาคตหรือสลับทิศทาง</li>
+          <li><b>เทียบกับการสุ่มซื้อขาย 20 รอบ</b> โดยคุมทุกอย่างให้เหมือนกันหมด ทั้งจำนวนครั้ง
+          จุดตัดขาดทุน จุดปิดกำไร และช่วงเวลา — โปรแกรมได้ 86.1% ส่วนการสุ่มได้เฉลี่ย 25.2%
+          และรอบที่ดวงดีที่สุดได้ 52.2%</li>
+          <li><b>เขียนใหม่ในโปรแกรมเทรดจริง</b> คนละภาษา คนละโปรแกรม แล้วรันช่วงเดียวกัน
+          (1 ม.ค. 2022 – 4 ก.ย. 2026) เทียบผลทีละตัว</li>
+        </ul>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>ตัวเลขที่วัด</th><th class="n">ฝั่ง Python</th><th class="n">ฝั่งโปรแกรมเทรด</th><th class="n">ต่างกัน</th></tr></thead>
+            <tbody>
+              <tr><td>จำนวนครั้งที่ซื้อขาย</td><td class="n">249</td><td class="n">236</td><td class="n">5.2%</td></tr>
+              <tr><td>เงินหายมากสุด</td><td class="n">−47.4%</td><td class="n">−44.3%</td><td class="n">6.6%</td></tr>
+              <tr><td>กำไรรวม ÷ ขาดทุนรวม</td><td class="n">1.34</td><td class="n">1.47</td><td class="n">9.7%</td></tr>
+              <tr><td>กำไรเฉลี่ยต่อปี</td><td class="n">86.1%</td><td class="n">100.7%</td><td class="n">17.0%</td></tr>
+              <tr><td>เงินปลายทาง</td><td class="n">$18,179</td><td class="n">$25,938</td><td class="n neg">42.7%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="muted"><b style="color:var(--white)">ตัวเลขไม่ได้ตรงกันเป๊ะ และผมคิดว่าตรงนี้น่าสนใจกว่าถ้ามันตรง</b> —
+        จำนวนไม้ต่างกัน 5% เงินที่หายมากสุดต่างกัน 7% แปลว่าทั้งสองฝั่งตัดสินใจเหมือนกันเกือบหมด
+        แต่พอทบต้นต่อเนื่อง 4 ปี 8 เดือน ความต่างเล็ก ๆ ไม่กี่ไม้ในช่วงต้นถูกขยายจนเงินปลายทางต่างกันถึง 43%
+        บทเรียนคือ <b style="color:var(--white)">เงินปลายทางเป็นตัวเลขที่เปราะที่สุด</b> เวลาเทียบสองระบบ
+        ต้องดูจำนวนไม้กับ drawdown ก่อน</p>
+        <p class="muted" style="margin-bottom:0"><b style="color:var(--white)">การทำแบบนี้จับบั๊กได้จริง 1 จุด</b> —
+        ฝั่ง Python คำนวณขนาดการซื้อละเอียดเท่าไรก็ได้ โดยลืมไปว่าของจริงซื้อขั้นต่ำได้แค่ 0.01 หน่วย
+        เงิน 1,000 ดอลลาร์ที่ความเสี่ยงต่ำ ควรซื้อ 0.0055 หน่วย ซึ่งซื้อจริงไม่ได้ ต้องปัดขึ้น
+        เท่ากับเสี่ยงจริงเกือบ 3 เท่าที่ตั้งใจไว้ พอใส่ข้อจำกัดนี้เข้าไป ตัวเลขสองฝั่งถึงตรงกัน</p>
+      </details>
+
+      <details class="step warn">
+        <summary><h4>สิ่งที่ตัวเลขข้างบนไม่ได้บอก</h4><span class="peek">ข้อจำกัด 6 ข้อ · กดอ่าน</span></summary>
+        <ul>
+          <li><b>ความได้เปรียบบางมาก</b> — ทายถูก 51.3% ดีกว่าโยนเหรียญแค่ 1.3%
+          และในช่วงปี 2018–2021 โปรแกรม <b style="color:var(--amber)">แพ้</b> การสุ่มด้วยซ้ำ</li>
+          <li><b>ชนะแทบเท่าแพ้</b> — ชนะ 121 ครั้ง แพ้ 115 ครั้ง คิดเป็นอัตราชนะ 51.3%
+          กำไรไม่ได้มาจากการทายแม่น แต่มาจากการที่ไม้ชนะได้เฉลี่ย 645 ดอลลาร์
+          ส่วนไม้ที่แพ้เสียเฉลี่ย 461 ดอลลาร์ เพราะตั้งจุดปิดกำไรไว้ไกลกว่าจุดตัดขาดทุน 3 เท่า
+          ถ้าตัดวินัยการตัดขาดทุนออก กลยุทธ์นี้ไม่เหลืออะไรเลย</li>
+          <li><b>มีตัวเลขหนึ่งที่หลอกตา</b> — ค่าความแม่นแบบหนึ่งได้ 0.9973 ดูสูงมาก
+          แต่การทายมั่ว ๆ ว่า "พรุ่งนี้ราคาเท่ากับวันนี้" กลับได้ 0.9975 ซึ่ง <i>สูงกว่า</i>
+          เพราะราคาทองเปลี่ยนช้า ไม่ใช่เพราะโปรแกรมเก่ง</li>
+          <li><b>ไม่ได้กำไรทุกปี</b> — ปี 2018 ขาดทุน 23.8% และปี 2026 ตอนนี้ขาดทุน 27.8%</li>
+          <li><b>ทดสอบแต่ในตลาดขาขึ้น</b> — ช่วง 2022–2026 ทองขึ้น 115% ยังไม่เคยเจอตลาดขาลงจริง ๆ</li>
+          <li><b>ยังไม่ได้จำลองค่าใช้จ่ายบางอย่าง</b> เช่น ราคาที่ได้จริงเพี้ยนจากที่สั่ง
+          ค่าถือข้ามคืน และส่วนต่างราคาที่กว้างขึ้นตอนมีข่าว</li>
+        </ul>
+        <p class="muted" style="margin-bottom:0">ทั้งหมดนี้ผมเขียนไว้ในเอกสารโปรเจกต์ตั้งแต่ก่อนส่งงาน ไม่ใช่คำแก้ตัวย้อนหลัง</p>
+      </details>
+    </div>
+
+    <div class="tags" style="margin-top:22px">
+      <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">pandas</span>
+      <span class="tag">NumPy</span><span class="tag">Plotly</span><span class="tag">Excel</span>
+      <span class="tag">MetaTrader 5</span><span class="tag">MQL5</span>
+    </div>
+
+    <details>
+      <summary>ดูโค้ด — จุดที่กันไม่ให้โปรแกรมแอบเห็นอนาคต</summary>
+      <div class="body">
+        <p class="muted" style="margin-top:12px; margin-bottom:0; font-size:15px">
+        บั๊กที่พบบ่อยที่สุดในงานทำนายราคา คือเผลอเอาข้อมูลอนาคตมาสอน แล้วได้ผลสวยเกินจริง
+        เพราะทำนายล่วงหน้าไป 12 ช่วง แถวสุดท้ายที่เฉลยแล้วจึงอยู่ห่างออกไป 12 แถว ไม่ใช่แถวติดกัน</p>
+<pre><span class="cmt"># goldai/model.py — ตัดข้อมูลสอนที่ t-horizon ไม่ใช่ t-1</span>
+<span class="kw">def</span> <span class="fn">walk_forward</span>(X, y, horizon, train_window, refit_every):
+    preds = {}
+    <span class="kw">for</span> t <span class="kw">in</span> <span class="fn">range</span>(train_window + horizon, <span class="fn">len</span>(X)):
+        <span class="cmt"># แถวล่าสุดที่ "รู้คำตอบแล้ว" คือ t - horizon</span>
+        <span class="cmt"># ถ้าใช้ t-1 = แอบดูอนาคต ผลจะสวยเกินจริงทันที</span>
+        end   = t - horizon
+        start = end - train_window
+        <span class="kw">if</span> t % refit_every == <span class="lit">0</span>:
+            model = <span class="fn">LinearRegression</span>().<span class="fn">fit</span>(X[start:end], y[start:end])
+        preds[t] = model.<span class="fn">predict</span>(X[t:t+<span class="lit">1</span>])[<span class="lit">0</span>]
+    <span class="kw">return</span> preds
+</pre>
+      </div>
+    </details>
+
+    <details>
+      <summary>ดูโครงสร้างระบบ — ทำไม Python เป็นสมอง และตัวส่งคำสั่งเป็นมือ</summary>
+      <div class="body">
+        <p class="muted" style="margin-top:12px; margin-bottom:0; font-size:15px">
+        โปรแกรมเทรดจริงรันได้แต่ภาษาของมันเอง ซึ่งไม่มีเครื่องมือด้าน AI
+        ผมจึงแยกหน้าที่ให้ชัด — การตัดสินใจทั้งหมดอยู่ฝั่ง Python ที่เดียว
+        ส่วนตัวส่งคำสั่งในโปรแกรมเทรดทำแค่อ่านไฟล์แล้วสั่งซื้อขาย ไม่มีการตัดสินใจเลยแม้แต่บรรทัดเดียว
+        ถ้าจะแก้กลยุทธ์ ผมแก้ที่ไฟล์ตั้งค่าไฟล์เดียว แล้วทั้งสองฝั่งเปลี่ยนตาม</p>
+        <svg viewBox="0 0 700 214" role="img" aria-label="แผนภาพโครงสร้างระบบ Gold AI: ไฟล์ตั้งค่าไฟล์เดียวป้อนค่าให้ทั้งการทดลองย้อนหลังและบอทเทรดจริง" style="width:100%;height:auto;margin-top:18px">
+          <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#4da3ff"/></marker></defs>
+          <g font-family="IBM Plex Sans Thai, sans-serif" font-size="13">
+            <rect x="246" y="8" width="208" height="48" rx="12" fill="rgba(77,163,255,.14)" stroke="#4da3ff"/>
+            <text x="350" y="29" fill="#7dd3fc" text-anchor="middle">config.py</text>
+            <text x="350" y="47" fill="#93a4bc" text-anchor="middle" font-size="11.5">ไฟล์ตั้งค่าไฟล์เดียวของทั้งระบบ</text>
+            <path d="M296,56 L192,94" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar)" fill="none"/>
+            <path d="M404,56 L508,94" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar)" fill="none"/>
+            <rect x="40" y="98" width="272" height="48" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(140,190,255,.30)"/>
+            <text x="176" y="120" fill="#e9eef7" text-anchor="middle">ทดลองย้อนหลัง</text>
+            <text x="176" y="138" fill="#63758f" text-anchor="middle" font-size="11.5">จำลอง 9 ปี แล้วออกรายงาน Excel 10 ชีต</text>
+            <rect x="388" y="98" width="272" height="48" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(140,190,255,.30)"/>
+            <text x="524" y="120" fill="#e9eef7" text-anchor="middle">บอทเทรดจริง</text>
+            <text x="524" y="138" fill="#63758f" text-anchor="middle" font-size="11.5">ต่อกับโปรแกรมเทรดโดยตรง</text>
+            <path d="M176,146 L176,170" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar)" fill="none"/>
+            <rect x="40" y="172" width="272" height="36" rx="12" fill="none" stroke="rgba(140,190,255,.30)" stroke-dasharray="4 4"/>
+            <text x="176" y="194" fill="#93a4bc" text-anchor="middle" font-size="11.5">ส่งออกสัญญาณ → รันซ้ำในโปรแกรมเทรด</text>
+            <path d="M524,146 L524,170" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar)" fill="none"/>
+            <rect x="388" y="172" width="272" height="36" rx="12" fill="none" stroke="rgba(140,190,255,.30)" stroke-dasharray="4 4"/>
+            <text x="524" y="194" fill="#93a4bc" text-anchor="middle" font-size="11.5">มีชุดทดสอบยืนยันว่าสองฝั่งตรงกันเป๊ะ</text>
+          </g>
+        </svg>
+      </div>
+    </details>
+  </article>
+
+  <!-- ── JodJodKUB ── -->
+  <article class="card proj" id="jodjodkub">
+    <div class="proj-head">
+      <h3>JodJodKUB</h3>
+      <span class="chip done">ใช้งานได้ · 2025</span>
+      <span class="chip">โปรเจกต์มหาวิทยาลัย</span>
+    </div>
+    <p class="proj-sub">เว็บจดรายรับรายจ่ายส่วนตัว ที่อัปโหลดรูปสลิปโอนเงินแล้วระบบอ่านยอดเงิน วันเวลา และเลขอ้างอิงมาให้เอง</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="v num">80–90%</div><div class="k">ความแม่นในการอ่านสลิป จึงให้ผู้ใช้ตรวจก่อนบันทึกเสมอ</div></div>
+      <div class="kpi"><div class="v num">4</div><div class="k">ตารางในฐานข้อมูล ผู้ใช้ · รายการเงิน · สลิป · งบประมาณ</div></div>
+      <div class="kpi"><div class="v num">7</div><div class="k">กลุ่มคำสั่งฝั่งเซิร์ฟเวอร์ ที่แยกไฟล์ตามหน้าที่</div></div>
+      <div class="kpi"><div class="v num">2</div><div class="k">ภาษาที่อ่านออก ไทยและอังกฤษ</div></div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <h4>โจทย์</h4>
+        <p class="muted">แอปจดรายรับรายจ่ายทั่วไปต้องพิมพ์เองทุกช่อง ซึ่งน่าเบื่อจนคนเลิกใช้ภายในไม่กี่วัน
+        แต่ทุกวันนี้เราโอนเงินแล้วได้สลิปเป็นรูปอยู่แล้ว ในรูปนั้นมีทั้งยอดเงิน วันเวลา และเลขอ้างอิงครบ
+        คำถามคือ ทำไมต้องพิมพ์ซ้ำ</p>
+      </div>
+
+      <div class="step">
+        <h4>วิธีทำ</h4>
+        <ul>
+          <li><b>อ่านตัวหนังสือจากรูป</b> — ใช้เครื่องมือชื่อ
+          <span class="term" data-tip="โปรแกรมโอเพนซอร์สที่แปลงรูปภาพให้กลายเป็นข้อความ รองรับภาษาไทย ทำงานบนเครื่องเราเอง ไม่ต้องส่งรูปออกไปข้างนอก">Tesseract</span>
+          อ่านทั้งภาษาไทยและอังกฤษ ทำงานอยู่บนเครื่องเซิร์ฟเวอร์เอง รูปสลิปไม่ถูกส่งออกไปไหน</li>
+          <li><b>แยกข้อความออกเป็นช่อง ๆ</b> — สลิปแต่ละธนาคารหน้าตาไม่เหมือนกัน
+          ผมเขียนตัวแยกข้อความแยกไว้อีกไฟล์ เพื่อดึงยอดเงิน วันเวลา และเลขอ้างอิงออกมา
+          แล้วเติมลงฟอร์มให้ <b>แต่ยังไม่บันทึก</b></li>
+          <li><b>ให้คนเป็นคนตัดสินใจเสมอ</b> — เพราะการอ่านรูปแม่นราว 80–90%
+          สลิปที่ถ่ายเอียง เบลอ หรือมีแสงสะท้อนก็อ่านผิดได้
+          ระบบจึงบังคับให้ผู้ใช้ตรวจและแก้ก่อนกดยืนยันทุกครั้ง ไม่มีการบันทึกเงียบ ๆ</li>
+          <li><b>กันบันทึกซ้ำ</b> — ระบบจำเลขอ้างอิงของสลิปที่เคยอัปแล้ว ถ้าอัปใบเดิมซ้ำจะเตือนและไม่บันทึกให้</li>
+          <li><b>ข้อมูลของแต่ละคนแยกขาดจากกัน</b> — ทุกคำสั่งที่ยิงไปหาฐานข้อมูล
+          ถูกกรองด้วยรหัสประจำตัวของคนที่ล็อกอินอยู่เสมอ ไม่มีทางเห็นข้อมูลของคนอื่น
+          แม้แต่แอดมินก็ดูรายการเงินของสมาชิกไม่ได้ ทำได้แค่จัดการบัญชี</li>
+          <li><b>รหัสผ่านไม่ได้เก็บเป็นตัวหนังสือ</b> — เก็บเป็นค่าที่แปลงแล้วย้อนกลับไม่ได้
+          ถ้าฐานข้อมูลหลุด รหัสผ่านก็ยังอ่านไม่ออก</li>
+        </ul>
+      </div>
+
+      <div class="step">
+        <h4>สิ่งที่ทำได้</h4>
+        <div class="tbl">
+          <table>
+            <thead><tr><th>ส่วน</th><th>ทำอะไรได้</th></tr></thead>
+            <tbody>
+              <tr><td>สมาชิก</td><td>สมัคร เข้าสู่ระบบ เปลี่ยนรหัสผ่าน</td></tr>
+              <tr><td>อ่านสลิป</td><td>อัปรูป → ระบบเติมยอดเงินและวันเวลาให้ → ผู้ใช้ยืนยันเอง</td></tr>
+              <tr><td>งบประมาณ</td><td>ตั้งงบทั้งเดือนหรือแยกหมวด มีแถบเตือน เขียว เหลือง แดง</td></tr>
+              <tr><td>รายงาน</td><td>กราฟ 12 เดือน กราฟรายวัน และกราฟวงกลมแยกตามหมวด</td></tr>
+              <tr><td>ส่งออก</td><td>กดปุ่มเดียวได้ไฟล์ CSV ของทั้งเดือน เปิดใน Excel ได้ทันที ภาษาไทยไม่เพี้ยน</td></tr>
+              <tr><td>แอดมิน</td><td>ดูรายชื่อสมาชิก ตั้งรหัสผ่านใหม่ เปลี่ยนบทบาท ลบบัญชี — แต่ดูเงินของคนอื่นไม่ได้</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="step warn">
+        <h4>สิ่งที่ยังไม่ดี</h4>
+        <ul>
+          <li><b>การอ่านรูปยังพลาดได้</b> — สลิปที่ถ่ายเอียง เบลอ หรือมีแสงสะท้อน อ่านผิดแน่นอน
+          ผมแก้ด้วยการออกแบบให้คนตรวจก่อนเสมอ ไม่ได้แก้ที่ตัวการอ่าน</li>
+          <li><b>ครั้งแรกต้องต่อเน็ต</b> — เพื่อโหลดไฟล์ภาษาไทยขนาดประมาณ 10 MB มาเก็บไว้
+          หลังจากนั้นใช้แบบออฟไลน์ได้</li>
+          <li><b>รูปสลิปเก็บเป็นไฟล์ธรรมดาบนเซิร์ฟเวอร์</b> ยังไม่ได้เข้ารหัส
+          ถ้าจะใช้งานจริงกับคนหมู่มาก ต้องแก้จุดนี้ก่อน</li>
+          <li><b>ยังไม่มีชุดทดสอบอัตโนมัติ</b> — ตอนนี้ทดสอบด้วยมือทั้งหมด ซึ่งไม่ยั่งยืน</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="shotStrip"></div>
+
+    <div class="tags" style="margin-top:22px">
+      <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span>
+      <span class="tag">Tesseract OCR</span><span class="tag">JWT</span><span class="tag">bcrypt</span>
+      <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+    </div>
+
+    <details>
+      <summary>ดูโครงสร้างระบบ — ข้อมูลเดินทางจากรูปสลิปไปเป็นรายการเงินได้อย่างไร</summary>
+      <div class="body">
+        <svg viewBox="0 0 700 150" role="img" aria-label="แผนภาพขั้นตอน: อัปโหลดรูปสลิป ผ่านการอ่านตัวหนังสือ แยกข้อความ ให้ผู้ใช้ยืนยัน แล้วบันทึกลงฐานข้อมูล" style="width:100%;height:auto;margin-top:16px">
+          <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="#4da3ff"/></marker></defs>
+          <g font-family="IBM Plex Sans Thai, sans-serif" font-size="12.5" text-anchor="middle">
+            <rect x="8" y="46" width="118" height="46" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(140,190,255,.30)"/>
+            <text x="67" y="66" fill="#e9eef7">อัปรูปสลิป</text>
+            <text x="67" y="83" fill="#63758f" font-size="11">จากมือถือหรือคอม</text>
+            <path d="M128,69 L154,69" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar2)"/>
+            <rect x="156" y="46" width="118" height="46" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(140,190,255,.30)"/>
+            <text x="215" y="66" fill="#e9eef7">อ่านตัวหนังสือ</text>
+            <text x="215" y="83" fill="#63758f" font-size="11">ไทย + อังกฤษ</text>
+            <path d="M276,69 L302,69" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar2)"/>
+            <rect x="304" y="46" width="118" height="46" rx="12" fill="rgba(255,255,255,.05)" stroke="rgba(140,190,255,.30)"/>
+            <text x="363" y="66" fill="#e9eef7">แยกเป็นช่อง</text>
+            <text x="363" y="83" fill="#63758f" font-size="11">ยอด · เวลา · เลขอ้างอิง</text>
+            <path d="M424,69 L450,69" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar2)"/>
+            <rect x="452" y="40" width="118" height="58" rx="12" fill="rgba(251,191,36,.10)" stroke="rgba(251,191,36,.45)"/>
+            <text x="511" y="62" fill="#fbbf24">คนตรวจและยืนยัน</text>
+            <text x="511" y="79" fill="#93a4bc" font-size="11">แก้ไขได้ทุกช่อง</text>
+            <text x="511" y="93" fill="#63758f" font-size="10.5">ไม่ยืนยัน = ไม่บันทึก</text>
+            <path d="M572,69 L598,69" stroke="#4da3ff" stroke-width="1.5" marker-end="url(#ar2)"/>
+            <rect x="600" y="46" width="92" height="46" rx="12" fill="rgba(77,163,255,.14)" stroke="#4da3ff"/>
+            <text x="646" y="66" fill="#7dd3fc">ฐานข้อมูล</text>
+            <text x="646" y="83" fill="#63758f" font-size="11">แยกตามผู้ใช้</text>
+            <text x="350" y="128" fill="#63758f" font-size="11.5">เลขอ้างอิงถูกจำไว้ ถ้าอัปสลิปใบเดิมซ้ำ ระบบจะเตือนและไม่บันทึกให้</text>
+          </g>
+        </svg>
+      </div>
+    </details>
+  </article>
+
+</section>
+
+<!-- ══════════ ทักษะ ══════════ -->
+<section class="page" id="page-skills">
+  <div class="page-head">
+    <div class="kicker">ทักษะ</div>
+    <h2>สิ่งที่ผมใช้ทำงานได้</h2>
+    <p>ทุกอย่างในหน้านี้ผมเคยใช้ทำโปรเจกต์จริงมาแล้ว ไม่ได้ใส่เผื่อให้ดูเยอะ
+    ส่วนทักษะการทำงาน ผมเขียนกำกับไว้ว่าได้มาจากตอนไหน</p>
+  </div>
+
+  <div class="skill-head">
+    <span class="skill-badge hard">Hard Skills</span>
+    <b>ทักษะเชิงเทคนิค</b>
+    <span class="line"></span>
+  </div>
+
+  <div class="grid g2">
+    <div class="card hover">
+      <h3 class="skill-title">ภาษาที่เขียนได้</h3>
+      <div class="skill-row">
+        <span class="pill">Python</span><span class="pill">JavaScript</span>
+        <span class="pill">SQL</span><span class="pill">HTML</span><span class="pill">CSS</span>
+      </div>
+    </div>
+    <div class="card hover">
+      <h3 class="skill-title">ฝั่งเซิร์ฟเวอร์และฐานข้อมูล</h3>
+      <div class="skill-row">
+        <span class="pill">Node.js</span><span class="pill">Express</span>
+        <span class="pill">PostgreSQL</span><span class="pill">JWT</span><span class="pill">bcrypt</span>
+      </div>
+    </div>
+    <div class="card hover">
+      <h3 class="skill-title">ไลบรารีที่ใช้ทำงานจริง</h3>
+      <div class="skill-row">
+        <span class="pill">pandas</span><span class="pill">NumPy</span><span class="pill">scikit-learn</span>
+        <span class="pill">Plotly</span><span class="pill">Chart.js</span><span class="pill">Tesseract OCR</span>
+      </div>
+    </div>
+    <div class="card hover">
+      <h3 class="skill-title">เครื่องมือที่ใช้ประจำ</h3>
+      <div class="skill-row">
+        <span class="pill">VS Code</span><span class="pill">Figma</span><span class="pill">MetaTrader 5</span>
+        <span class="pill">Microsoft Office</span><span class="pill">Canva</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-head">
+    <span class="skill-badge soft">Soft Skills</span>
+    <b>ทักษะการทำงานกับคนและกับงาน</b>
+    <span class="line"></span>
+  </div>
+
+  <div class="card">
+    <div class="soft-row">
+      <b>ไล่หาสาเหตุจนเจอ</b>
+      <p>ตอนทำ Gold AI ผลสองฝั่งออกมาไม่ตรงกัน ผมนั่งไล่เทียบทีละจุดจนเจอว่าลืมใส่ข้อจำกัดของโบรกเกอร์ไป</p>
+    </div>
+    <div class="soft-row">
+      <b>อธิบายให้คนอื่นเข้าใจ</b>
+      <p>เวลาเขียนเอกสารโปรเจกต์ ผมพยายามเขียนให้คนที่ไม่ได้เรียนสายนี้อ่านแล้วตามได้ และบอกข้อเสียไว้ด้วย</p>
+    </div>
+    <div class="soft-row">
+      <b>ตรวจงานตัวเองก่อนเสมอ</b>
+      <p>ก่อนเอาข้อมูลไปใช้ ผมเช็คก่อนว่าตรงกับต้นทางไหม แล้วตั้งให้เช็คเองทุกครั้งที่รัน จะได้ไม่ลืม</p>
+    </div>
+    <div class="soft-row">
+      <b>คุยกับคนหลายฝ่ายได้</b>
+      <p>จัดกิจกรรมมหาวิทยาลัยมา 2 ปีครึ่ง ต้องคุยกับหลายหน่วยงานให้งานออกมาตรงเวลา</p>
+    </div>
+    <div class="soft-row">
+      <b>รับมือลูกค้าหน้างาน</b>
+      <p>ทำงานหน้าบูธงาน Commart กับร้านอาหารช่วงคนเยอะ ได้ฝึกตอบคำถามลูกค้าเร็ว ๆ โดยไม่หงุดหงิด</p>
+    </div>
+    <div class="soft-row">
+      <b>แบ่งเวลาเป็น</b>
+      <p>ปีที่ทำงานพาร์ทไทม์ไปด้วยเรียนไปด้วย ผมยังส่งงานทันทุกชิ้น</p>
+    </div>
+  </div>
+
+  <div class="skill-head">
+    <span class="skill-badge lang">Languages</span>
+    <b>ภาษา</b>
+    <span class="line"></span>
+  </div>
+
+  <div class="grid g2">
+    <div class="card hover">
+      <h3 class="skill-title">ไทย</h3>
+      <p class="muted" style="margin-bottom:0">• ภาษาแม่</p>
+    </div>
+    <div class="card hover">
+      <h3 class="skill-title">อังกฤษ</h3>
+      <p class="muted" style="margin-bottom:0">• สื่อสารในชีวิตประจำวันได้</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ประสบการณ์ ══════════ -->
+<section class="page" id="page-experience">
+  <div class="page-head">
+    <div class="kicker">ประสบการณ์</div>
+    <h2>ที่ผ่านมาผมทำอะไรมาบ้าง</h2>
+  </div>
+  <div class="grid g2" style="align-items:start">
+    <div class="card">
+      <h3 style="font-size:20px; margin-bottom:22px">การทำงาน</h3>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="when">มี.ค. 2025 – มี.ค. 2026</div>
+          <h4>ดูแลลูกค้าและงานไอที (พาร์ทไทม์)</h4>
+          <div class="where">Commart Thailand · บูธ IT City</div>
+          <p>ช่วยลูกค้าเรื่องอุปกรณ์คอมพิวเตอร์ ติดตั้งแรมและเอสเอสดี แก้ปัญหาการใช้งานเบื้องต้น
+          และตั้งค่าเครื่องใหม่ให้เข้าหน้าจอได้เร็วเพื่อทดสอบเครื่องหน้าบูธโดยไม่ต้องต่อเน็ต</p>
+        </div>
+        <div class="tl-item">
+          <div class="when">ส.ค. 2023 – ธ.ค. 2025</div>
+          <h4>ผู้ประสานงานกิจกรรมนักศึกษา</h4>
+          <div class="where">RMUTK</div>
+          <p>จัดกิจกรรมของมหาวิทยาลัย ดูแลอุปกรณ์ และประสานงานระหว่างหน่วยงานต่าง ๆ ให้งานเดินได้ราบรื่น</p>
+        </div>
+        <div class="tl-item">
+          <div class="when">มี.ค. 2023 – มิ.ย. 2023</div>
+          <h4>พนักงานบริการลูกค้า</h4>
+          <div class="where">Tora Yakiniku x Café</div>
+          <p>รับออร์เดอร์ ดูแลลูกค้า และช่วยให้ร้านเดินต่อได้ในช่วงที่คนแน่น</p>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:20px; margin-bottom:22px">การศึกษา</h3>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="when">2023 – ปัจจุบัน</div>
+          <h4>ปริญญาตรี วิทยาการคอมพิวเตอร์</h4>
+          <div class="where">คณะวิทยาศาสตร์และเทคโนโลยี · RMUTK</div>
+          <p>ชั้นปีที่ 4</p>
+        </div>
+        <div class="tl-item">
+          <div class="when">จบมัธยมปลาย</div>
+          <h4>โรงเรียนเตรียมอุดมศึกษาน้อมเกล้า สมุทรปราการ</h4>
+          <div class="where">เกรดเฉลี่ยสะสม 3.57</div>
+        </div>
+      </div>
+      <div style="margin-top:26px; padding-top:22px; border-top:1px solid var(--edge)">
+        <h4 style="font-size:17px; margin-bottom:10px">กำลังหาที่ฝึกงาน</h4>
+        <p class="muted" style="margin-bottom:0">ตำแหน่งโปรแกรมเมอร์ ระยะเวลา 17 สัปดาห์
+        ตั้งแต่ 16 พฤศจิกายน 2026 ถึง 12 มีนาคม 2027</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ใบประกาศ ══════════ -->
+<section class="page" id="page-certificates">
+  <div class="page-head">
+    <div class="kicker">ใบประกาศ</div>
+    <h2>ใบประกาศนียบัตร</h2>
+    <p>ใบประกาศจากหลักสูตรด้านการเทรดและการบริหารความเสี่ยง ซึ่งเป็นที่มาของโปรเจกต์ Gold AI —
+    ผมเริ่มจากการเรียนเรื่องการจัดการความเสี่ยงและวินัยการตัดขาดทุน แล้วค่อยเขียนโปรแกรมมาทดสอบว่าแนวคิดพวกนั้นวัดผลได้จริงไหม</p>
+    <p style="margin-top:8px">กดที่รูปเพื่อดูขนาดเต็ม · เลื่อนดูรูปถัดไปด้วยปุ่มลูกศร · ปิดด้วยปุ่ม Esc</p>
+  </div>
+  <div id="certGrid"></div>
+</section>
+
+<!-- ══════════ ติดต่อ ══════════ -->
+<section class="page" id="page-contact">
+  <div class="page-head">
+    <div class="kicker">ติดต่อ</div>
+    <h2>คุยกันได้เลยครับ</h2>
+    <p>ผมตอบอีเมลทุกวัน ถ้าสนใจรับผมเข้าฝึกงาน ทักมาได้ตามช่องทางด้านล่าง</p>
+  </div>
+  <div class="grid g2" id="contactGrid"></div>
+  <div class="card hover" style="margin-top:24px; display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between">
+    <div>
+      <h3 style="font-size:19px; margin-bottom:6px">เรซูเม่ฉบับเต็ม</h3>
+      <p class="muted" style="margin-bottom:0">ไฟล์ PDF หน้าเดียว พร้อมพิมพ์</p>
+    </div>
+    <a class="btn primary" href="assets/Nadtapong_Saesung_Resume.pdf" target="_blank" rel="noopener">ดาวน์โหลดเรซูเม่</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <div>© 2026 Nadtapong Saesung · สมุทรปราการ ประเทศไทย</div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูใบประกาศขนาดเต็ม">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="ปิด">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="รูปก่อนหน้า">&#8249;</button>
+  <button class="lb-btn lb-next" id="lbNext" aria-label="รูปถัดไป">&#8250;</button>
+  <div>
+    <img id="lbImg" alt="">
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   ตั้งค่าทั้งหมดอยู่ตรงนี้ที่เดียว — แก้ 2 ก้อนนี้พอ
+   ══════════════════════════════════════════════════════════ */
+
+/* ใบประกาศ: วางรูปไว้ใน assets/certs/ แล้วเพิ่มทีละบรรทัด */
+const CERTS = [
+  { file: "assets/certs/passed-ftmo-challenge.jpeg", title: "Passed FTMO Challenge", by: "FTMO · 4 พ.ย. 2024" },
+  { file: "assets/certs/ftmo-academycer.jpeg",       title: "FTMO Academy — คะแนน 92%", by: "FTMO · 11 ต.ค. 2024" },
+  { file: "assets/certs/IMG_7413.png",               title: "TopTier Academy", by: "TopTier Trader · ต.ค. 2024" },
+  { file: "assets/certs/ic.png",                     title: "IC Funded — Phase 2", by: "IC Funded · 1 ส.ค. 2024" },
+];
+
+/* กราฟจริงที่โปรแกรม Gold AI สร้างออกมา (จากไฟล์ Gold_AI_Dashboard.html) */
+const GOLD_SHOTS = [
+  { file: "assets/shots/gold-equity.png",   title: "เส้นทุน 3 ระดับความเสี่ยง เทียบกับการถือทองคำ (แกนตั้งเป็น log)" },
+  { file: "assets/shots/gold-price.png",    title: "ราคาทองคำ และจุดที่โปรแกรมเข้าซื้อ 1,200 ช่วงเวลาท้ายสุด" },
+  { file: "assets/shots/gold-accuracy.png", title: "ราคาที่ทำนาย เทียบกับราคาจริง — ยิ่งชิดเส้นแดงยิ่งแม่น" },
+  { file: "assets/shots/gold-forecast.png", title: "ทำนายพอร์ตปีหน้า สุ่มจำลอง 2,000 เส้นทาง" },
+  { file: "assets/shots/mt5-backtest.png",  title: "ผลรันซ้ำใน MetaTrader 5 — สถิติเต็มของช่วง 2022–2026" },
+  { file: "assets/shots/mt5-graph.png",     title: "เส้นทุนฝั่ง MetaTrader 5 — เทียบกับกราฟที่ Python วาด" },
+];
+
+/* สกรีนช็อตหน้าจอ JodJodKUB: วางรูปไว้ใน assets/shots/ แล้วเพิ่มทีละบรรทัด
+   ถ้าปล่อยว่าง ส่วนนี้จะไม่ขึ้นในเว็บเลย */
+const SHOTS = [
+  { file: "assets/shots/slip.png",      title: "อัปสลิป → ระบบอ่านยอดเงินมาเติมให้ รอผู้ใช้ยืนยัน" },
+  { file: "assets/shots/dashboard.png", title: "หน้าแรก — ยอดวันนี้ ยอดเดือนนี้ และสถานะงบ" },
+  { file: "assets/shots/entries.png",   title: "ตารางรายการ กรองตามเดือนและประเภทได้" },
+  { file: "assets/shots/budget.png",    title: "งบประมาณ — แถบเขียว เหลือง แดง ตามที่ใช้ไป" },
+  { file: "assets/shots/report.png",    title: "รายงานรายเดือน + ปุ่มส่งออก CSV เปิดใน Excel ได้เลย" },
+  { file: "assets/shots/admin.png",     title: "หน้าแอดมิน — จัดการบัญชีได้ แต่ดูเงินของคนอื่นไม่ได้" },
+];
+
+/* ช่องทางติดต่อ: ใส่ url แล้วช่องนั้นจะกดได้ทันที ปล่อยว่างไว้ = แสดงเฉย ๆ กดไม่ได้ */
+const CONTACTS = [
+  { icon: "✉", label: "อีเมล",   value: "nadtapongsaesung2005@gmail.com", url: "mailto:nadtapongsaesung2005@gmail.com" },
+  { icon: "☎", label: "โทรศัพท์", value: "098-471-1431",         url: "tel:0984711431" },
+  { icon: "⌥", label: "GitHub",   value: "github.com/Feckter",   url: "https://github.com/Feckter" },
+  { icon: "☍", label: "LINE",     value: "theboy2005",           url: "https://line.me/ti/p/~theboy2005" },
+  { icon: "⌂", label: "ที่อยู่",    value: "สมุทรปราการ ประเทศไทย", url: "" },
+];
+
+/* ══════════════════════════════════════════════════════════ */
+
+/* ---- สลับหน้า (แต่ละเมนูเป็นคนละหน้า ไม่ใช่เลื่อนลงไปดู) ---- */
+const PAGES = ["home", "projects", "skills", "experience", "certificates", "contact"];
+const tabLinks = [...document.querySelectorAll(".tabs a")];
+
+function show(name) {
+  const id = PAGES.includes(name) ? name : "home";
+  PAGES.forEach(p => document.getElementById("page-" + p).classList.toggle("on", p === id));
+  tabLinks.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + id));
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  if (id === "projects") paintChart();   // กราฟวัดความกว้างได้ต่อเมื่อหน้านี้ถูกแสดงแล้ว
+}
+addEventListener("hashchange", () => show(location.hash.slice(1)));
+
+/* ---- คัดลอกอีเมล (clipboard ใช้ไม่ได้บน file:// บางเบราว์เซอร์ จึงมีทางสำรอง) ---- */
+document.getElementById("copyMail").addEventListener("click", async (e) => {
+  const btn = e.currentTarget, old = btn.textContent, mail = CONTACTS[0].value;
+  try {
+    await navigator.clipboard.writeText(mail);
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = mail; document.body.appendChild(ta); ta.select();
+    document.execCommand("copy"); ta.remove();
+  }
+  btn.textContent = "คัดลอกแล้ว ✓";
+  setTimeout(() => { btn.textContent = old; }, 1800);
+});
+
+/* ---- ช่องทางติดต่อ ---- */
+document.getElementById("contactGrid").innerHTML = CONTACTS.map(c => {
+  const inner = `<span class="ic">${c.icon}</span><span><span class="k">${c.label}</span><br><span class="v">${c.value}</span></span>`;
+  return c.url
+    ? `<a class="ct" href="${c.url}">${inner}</a>`
+    : `<div class="ct soon">${inner}</div>`;
+}).join("");
+
+/* ---- ใบประกาศ + หน้าต่างดูรูปเต็ม ---- */
+const grid = document.getElementById("certGrid");
+if (CERTS.length === 0) {
+  grid.className = "empty";
+  grid.innerHTML = "ยังไม่ได้ใส่ใบประกาศ<br><br>วางไฟล์รูปไว้ใน <b>assets/certs/</b> แล้วเพิ่มชื่อไฟล์ในตัวแปร CERTS ท้ายไฟล์นี้";
+} else {
+  grid.className = "certs";
+  grid.innerHTML = CERTS.map((c, i) => `
+    <button class="cert" data-i="${i}">
+      <img src="${c.file}" alt="${c.title}" loading="lazy">
+      <div class="cap"><b>${c.title}</b><span>${c.by || ""}</span></div>
+    </button>`).join("");
+}
+
+/* ---- สกรีนช็อตหน้าจอ JodJodKUB (ไม่มีรูป = ไม่ขึ้นเลย) ---- */
+function buildStrip(boxId, list, note, extraClass = "") {
+  const box = document.getElementById(boxId);
+  if (!box || !list.length) return;
+  box.className = "shots " + extraClass;
+  // ถ้ายังไม่มีไฟล์รูป ให้ช่องนั้นหายไปเงียบ ๆ แทนที่จะโชว์รูปแตก
+  box.innerHTML = list.map((s, i) => `
+    <button class="shot" data-i="${i}">
+      <img src="${s.file}" alt="${s.title}" loading="lazy" onerror="this.closest('.shot').remove()">
+      <span>${s.title}</span>
+    </button>`).join("")
+    + (note ? `<p class="shot-note">${note}</p>` : "");
+  box.addEventListener("click", (e) => {
+    const b = e.target.closest(".shot");
+    if (!b) return;
+    // เอาเฉพาะช่องที่ยังอยู่จริง ปุ่มลูกศรจะได้ไม่เลื่อนไปเจอรูปที่ไม่มีไฟล์
+    const shown = [...box.querySelectorAll(".shot")];
+    openLB(shown.map((el) => list[+el.dataset.i]), shown.indexOf(b));
+  });
+}
+
+buildStrip("goldStrip", GOLD_SHOTS,
+  "กราฟจริงจากไฟล์รายงานที่โปรแกรมสร้างออกมาเอง ไม่ได้วาดขึ้นใหม่ · กดดูขนาดเต็มได้", "wide");
+buildStrip("shotStrip", SHOTS,
+  "ภาพจากระบบจริงที่รันอยู่ ข้อมูลในภาพเป็นบัญชีทดลอง เบลอรูปสลิปและอีเมลสมาชิกไว้ เพราะของจริงมีเลขบัญชีและรหัสตรวจสอบ");
+
+/* ---- หน้าต่างดูรูปเต็ม ใช้ร่วมกันทั้งใบประกาศและสกรีนช็อต ---- */
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg"), lbCap = document.getElementById("lbCap");
+let album = CERTS, at = 0;
+
+function openLB(list, i) {
+  album = list;
+  at = (i + album.length) % album.length;
+  const it = album[at];
+  lbImg.src = it.file;
+  lbImg.alt = it.title;
+  lbCap.textContent = it.title + (it.by ? " · " + it.by : "");
+  lb.classList.add("on");
+}
+function closeLB() { lb.classList.remove("on"); }
+
+grid.addEventListener("click", e => {
+  const btn = e.target.closest(".cert");
+  if (btn) openLB(CERTS, +btn.dataset.i);
+});
+document.getElementById("lbClose").onclick = closeLB;
+document.getElementById("lbPrev").onclick = () => openLB(album, at - 1);
+document.getElementById("lbNext").onclick = () => openLB(album, at + 1);
+lb.addEventListener("click", e => { if (e.target === lb) closeLB(); });
+addEventListener("keydown", e => {
+  if (!lb.classList.contains("on")) return;
+  if (e.key === "Escape") closeLB();
+  if (e.key === "ArrowLeft") openLB(album, at - 1);
+  if (e.key === "ArrowRight") openLB(album, at + 1);
+});
+
+/* ---- กราฟกำไรรายปี — ตัวเลขจากรายงานของโปรเจกต์ (ความเสี่ยงระดับกลาง) ---- */
+const YEARLY = [
+  { y: 2018, ai: -23.8, gold: -2.7 }, { y: 2019, ai: 71.0,  gold: 18.8 },
+  { y: 2020, ai: 105.4, gold: 24.6 }, { y: 2021, ai: 9.0,   gold: -4.5 },
+  { y: 2022, ai: 106.0, gold: -0.3 }, { y: 2023, ai: 113.9, gold: 12.8 },
+  { y: 2024, ai: 74.2,  gold: 27.2 }, { y: 2025, ai: 242.8, gold: 64.6 },
+  { y: 2026, ai: -27.8, gold: 1.9  },
+];
+
+function drawYearly(svg, data) {
+  // SVG ถูกย่อตามความกว้างจอ ตัวหนังสือเลยเล็กตามไปด้วย บนมือถือต้องขยายตัวอักษร
+  // แล้วเพิ่มความสูงกราฟชดเชย ไม่งั้นอ่านตัวเลขไม่ออก
+  const shown = svg.getBoundingClientRect().width || 720;
+  const k = Math.min(Math.max(720 / shown, 1), 2.3);
+  const W = 720, H = k > 1.6 ? 430 : 300;
+  const padL = 26 * k + 24, padR = 10, padT = 16, padB = 18 * k + 16;
+  const fs = { axis: 11.5 * k, year: 12 * k };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.textContent = "";
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (t, a) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); return n; };
+  const txt = (s, a) => { const n = el("text", a); n.textContent = s; return n; };
+
+  const vals = data.flatMap(d => [d.ai, d.gold, 0]);
+  const hi = Math.max(...vals), lo = Math.min(...vals);
+  const yOf = v => padT + (hi - v) / (hi - lo) * (H - padT - padB);
+  const band = (W - padL - padR) / data.length;
+  const barW = band * 0.30;
+  const frag = document.createDocumentFragment();
+
+  for (let t = Math.floor(lo / 50) * 50; t <= hi; t += 50) {
+    frag.appendChild(el("line", { x1: padL, x2: W - padR, y1: yOf(t), y2: yOf(t),
+      stroke: t === 0 ? "rgba(140,190,255,.42)" : "rgba(140,190,255,.11)" }));
+    frag.appendChild(txt(t + "%", { x: padL - 10, y: yOf(t) + fs.axis * 0.35, "text-anchor": "end",
+      fill: "#63758f", "font-size": fs.axis, "font-family": "IBM Plex Sans Thai, sans-serif" }));
+  }
+
+  data.forEach((d, i) => {
+    const cx = padL + band * i + band / 2;
+    [[d.ai, "#4da3ff", -1, "โปรแกรมของผม"], [d.gold, "#63758f", 1, "ซื้อทองเก็บ"]].forEach(([v, fill, side, who]) => {
+      const y0 = yOf(0), y1 = yOf(v);
+      const r = el("rect", {
+        class: "bar",
+        x: side < 0 ? cx - 2 - barW : cx + 2, y: Math.min(y0, y1),
+        width: barW, height: Math.max(Math.abs(y1 - y0), 1.5), rx: 3, fill,
+      });
+      r.appendChild(el("title")).textContent = `${d.y} · ${who} · ${v > 0 ? "+" : ""}${v}%`;
+      frag.appendChild(r);
+    });
+    // จอแคบ ตัวอักษรใหญ่ ปีจะชนกัน จึงเขียนเว้นปี
+    if (k < 1.6 || i % 2 === 0) {
+      frag.appendChild(txt(d.y, { x: cx, y: H - padB * 0.30, "text-anchor": "middle",
+        fill: "#63758f", "font-size": fs.year, "font-family": "IBM Plex Sans Thai, sans-serif" }));
+    }
+  });
+  svg.appendChild(frag);
+}
+const chartEl = document.getElementById("chartYearly");
+let lastW = 0, redrawTimer;
+
+/** วาดกราฟใหม่ถ้าความกว้างเปลี่ยนไปจริง ๆ (เปลี่ยนหน้า / หมุนจอ / ย่อขยายหน้าต่าง) */
+function paintChart() {
+  const w = chartEl.getBoundingClientRect().width;
+  if (!w || Math.abs(w - lastW) < 20) return;
+  lastW = w;
+  drawYearly(chartEl, YEARLY);
+}
+
+addEventListener("resize", () => {
+  clearTimeout(redrawTimer);
+  redrawTimer = setTimeout(paintChart, 200);
+});
+
+/* ตอนสั่งพิมพ์ ต้องกางทุกส่วนที่พับไว้ก่อน ไม่งั้นเนื้อหาข้างในหายไปจากกระดาษ */
+let openBefore = [];
+addEventListener("beforeprint", () => {
+  const all = [...document.querySelectorAll("details")];
+  openBefore = all.map((d) => d.open);
+  all.forEach((d) => { d.open = true; });
+});
+addEventListener("afterprint", () => {
+  document.querySelectorAll("details").forEach((d, i) => { d.open = openBefore[i] ?? false; });
+});
+
+show(location.hash.slice(1));   // เรียกท้ายสุด เพราะ show() ต้องใช้ทั้ง paintChart และ YEARLY
+</script>
+</body>
+</html>
