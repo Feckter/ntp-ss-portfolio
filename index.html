@@ -179,6 +179,25 @@ a:hover{color:var(--blue-2)}
 .proj-head h3{font-size:26px}
 .proj-sub{color:var(--ink-2); margin-bottom:24px; max-width:66ch}
 
+/* กล่องชวนกดลองใช้ของจริง — เน้นให้เห็นก่อนตัวเลขและรูป */
+.trybox{
+  margin-top:24px; padding:22px 24px; border-radius:var(--r-sm);
+  background:linear-gradient(140deg,rgba(74,222,128,.10),rgba(77,163,255,.07));
+  border:1px solid rgba(74,222,128,.30);
+}
+.try-head{display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between}
+.try-head h4{font-size:18px; color:var(--white); margin-bottom:5px}
+.try-head p{margin:0; color:var(--ink-2); font-size:15px; max-width:52ch}
+.try-cred{
+  display:flex; flex-wrap:wrap; gap:10px 26px; margin-top:18px; padding-top:16px;
+  border-top:1px solid rgba(74,222,128,.22); font-size:15px; color:var(--ink-3);
+}
+.try-cred b{color:var(--ink); font-weight:600; user-select:all}
+.try-note{margin:14px 0 0; padding-left:20px; color:var(--ink-3); font-size:14px}
+.try-note li{margin-bottom:5px}
+.try-note li::marker{color:var(--green)}
+.try-note b{color:var(--ink-2)}
+
 .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; margin:26px 0}
 .kpi{
   background:var(--surface); border:1px solid var(--edge); border-radius:var(--r-sm); padding:16px 18px;
@@ -673,6 +692,25 @@ footer{border-top:1px solid var(--edge); padding:30px 0 46px; color:var(--ink-3)
       <span class="chip">โปรเจกต์มหาวิทยาลัย</span>
     </div>
     <p class="proj-sub">เว็บจดรายรับรายจ่ายส่วนตัว ที่อัปโหลดรูปสลิปโอนเงินแล้วระบบอ่านยอดเงิน วันเวลา และเลขอ้างอิงมาให้เอง</p>
+
+    <div class="trybox">
+      <div class="try-head">
+        <div>
+          <h4>ลองใช้งานจริงได้เลย</h4>
+          <p>ระบบรันอยู่จริง ไม่ใช่ภาพนิ่ง เข้าไปดูข้อมูลตัวอย่าง 6 เดือน หรือลองอัปสลิปของคุณเองก็ได้</p>
+        </div>
+        <a class="btn primary" href="https://jodjodkub.onrender.com" target="_blank" rel="noopener">เปิดเว็บ</a>
+      </div>
+      <div class="try-cred">
+        <span>อีเมล <b>demo@jodjodkub.app</b></span>
+        <span>รหัสผ่าน <b>demo1234</b></span>
+      </div>
+      <ul class="try-note">
+        <li>ใช้เซิร์ฟเวอร์แพ็กฟรีที่หลับเองเมื่อไม่มีคนใช้ 15 นาที <b>คนแรกที่กดอาจต้องรอราว 50 วินาที</b> ให้เครื่องตื่นก่อน</li>
+        <li>อ่านสลิปหนึ่งใบใช้เวลาราว <b>15 วินาที</b> เพราะประมวลผลบนเครื่องฟรีที่แรงไม่มาก</li>
+        <li>บัญชีตัวอย่างเป็นสมาชิกธรรมดา ไม่ใช่แอดมิน จึงแตะข้อมูลของคนอื่นไม่ได้</li>
+      </ul>
+    </div>
 
     <div class="kpis">
       <div class="kpi"><div class="v num">80–90%</div><div class="k">ความแม่นในการอ่านสลิป จึงให้ผู้ใช้ตรวจก่อนบันทึกเสมอ</div></div>
